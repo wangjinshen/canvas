@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+    }
+
+    #context {
+        background: #eeeeee;
+        margin: 0 auto;
+        display: block;
+        position: relative;
+    }
+    .new{
+        width: 800px;
+        height: 30px;
+        margin: 0 auto;
+    }
+ 
+    input{
+        margin-top: 0;
+        height: 30px;
+        float: left;
+    }
+  
+</style>
+
+<body>
+    <canvas id="context" width=800 height=600></canvas>
+    <div class="new">
+        <input type="color" id="color">
+    </div>
+    <script>
+        var color;
+
+        var cxt = document.getElementById('context')
+        var context = cxt.getContext('2d');
+        document.getElementById('color').onchange=function(){
+            color=this.value
+        }
+
+
+
+
+        cxt.onmousedown = function (e) {
+            let address = {
+                x: e.pageX - this.offsetLeft,
+                y: e.pageY - this.offsetTop
+            }
+            context.lineWidth = 1;
+            context.strokeStyle=color;
+            
+            // context.fillStyle=color;
+            context.beginPath()
+            context.moveTo(address.x, address.y);
+            cxt.onmousemove = function (e) {
+                console.log(e)
+                let address = {
+                    x: e.pageX - this.offsetLeft,
+                    y: e.pageY - this.offsetTop
+                }
+                context.lineWidth = 1;
+                context.lineTo(address.x, address.y);
+                // console.log(address)
+                context.stroke();
+                
+            }
+        }
+        document.onmouseup = function (e) {
+            cxt.onmousemove = null
+        }
+    </script>
+</body>
+
+</html>
