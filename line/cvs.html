@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #cav {
+            border: thin solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cav" width="800" height="500"></canvas>
+    <script src="./cvs.js"></script>
+    <script>
+        var arrY = [32, 32, 32, 32, 32, 32, 32]
+        var arrX = ["周一", "周二", "周三", "周四", "周五", "周六", "周七"]
+
+        class dirline extends Xy {
+            constructor(...props) {
+                super(...props)
+                this.dline()
+            }
+            dline() {
+                let arrY = this.arrY
+                let x = this.x
+                let y = this.y
+                let max = Math.max.apply(null, arrY)
+                let scale = max / 400
+                let context = this.context
+                let xbl = 400 / arrY.length
+                context.beginPath();
+                for (let i = 1; i <= arrY.length; i++) {
+                    context.lineTo(700/7*i,-arrY[i-1]/scale)
+                }
+                context.stroke();
+            }
+        }
+        new dirline("#cav", arrX, arrY)
+    </script>
+</body>
+
+</html>
